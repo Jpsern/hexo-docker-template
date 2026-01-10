@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := help
 
+COMPOSE_CMD := docker compose
+
 help: ## このヘルプメッセージを出力
 	@echo
 	@printf "\033[1;4mUSAGE\033[0m\n"
@@ -10,32 +12,32 @@ help: ## このヘルプメッセージを出力
 .PHONY: help
 
 build: ## コンテナ初期化
-	docker compose build --no-cache
+	$(COMPOSE_CMD) build --no-cache
 	make gen
 .PHONY: build
 
 up: ## コンテナ起動
-	docker compose up -d
+	$(COMPOSE_CMD) up -d
 .PHONY: up
 
 down: ## コンテナ停止
-	docker compose down
+	$(COMPOSE_CMD) down
 .PHONY: down
 
 down-all: ## コンテナ掃除
-	docker compose down --rmi all --volumes --remove-orphans
+	$(COMPOSE_CMD) down --rmi all --volumes --remove-orphans
 .PHONY: down-all
 
 restart: ## コンテナ再起動
-	docker compose restart apache
-	docker compose restart https-portal
+	$(COMPOSE_CMD) restart apache
+	$(COMPOSE_CMD) restart https-portal
 .PHONY: restart
 
 clean: ## hexo generate の成果物を掃除
-	docker compose run --rm node hexo clean
+	$(COMPOSE_CMD) run --rm node hexo clean
 .PHONY: clean
 
 gen: ## hexo generate 実行
-	docker compose run --rm node npm install
-	docker compose run --rm node hexo generate
+	$(COMPOSE_CMD) run --rm node npm install
+	$(COMPOSE_CMD) run --rm node hexo generate
 .PHONY: gen
