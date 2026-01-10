@@ -1,21 +1,16 @@
-version: "3.9"
 services:
   node:
     container_name: node-container
     build: ./docker/node
     volumes:
-      - type: bind
-        source: ./app
-        target: /var/app
+      - ./app:/var/app
   apache:
     container_name: apache-container
     build: ./docker/apache
     ports:
       - "80:80"
     volumes:
-      - type: bind
-        source: "./app/public"
-        target: "/usr/local/apache2/htdocs"
+      - ./app/public:/usr/local/apache2/htdocs
   https-portal:
     image: steveltn/https-portal:1
     ports:
