@@ -10,32 +10,32 @@ help: ## このヘルプメッセージを出力
 .PHONY: help
 
 build: ## コンテナ初期化
-	docker-compose build --no-cache
+	docker compose build --no-cache
 	make gen
 .PHONY: build
 
 up: ## コンテナ起動
-	docker-compose up -d
+	docker compose up -d
 .PHONY: up
 
 down: ## コンテナ停止
-	docker-compose down
+	docker compose down
 .PHONY: down
 
 down-all: ## コンテナ掃除
-	docker-compose down --rmi all --volumes --remove-orphans
+	docker compose down --rmi all --volumes --remove-orphans
 .PHONY: down-all
 
 restart: ## コンテナ再起動
-	docker-compose restart apache
-	docker-compose restart https-portal
+	docker compose restart apache
+	docker compose restart https-portal
 .PHONY: restart
 
 clean: ## hexo generate の成果物を掃除
-	docker-compose run --rm node hexo clean
+	docker compose run --rm node hexo clean
 .PHONY: clean
 
 gen: ## hexo generate 実行
-	docker-compose run --rm node npm install
-	docker-compose run --rm node hexo generate
+	docker compose run --rm node npm install
+	docker compose run --rm node hexo generate
 .PHONY: gen
